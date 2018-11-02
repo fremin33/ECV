@@ -1,0 +1,322 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+body {
+  background: lightgray;
+  font-size: 16px;
+  margin: 0 auto;
+}
+h1 {
+  font-size: 2.5rem;
+  padding-bottom: 18px;
+}
+h2 {
+  flex-basis: 100%;
+  font-size: 1.7rem;
+  padding: 15px;
+}
+h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+p {
+  font-size: 18px;
+}
+a {
+  outline: none;
+  text-decoration: none;
+  color: inherit;
+}
+img {
+  max-width: 100%;
+}
+header {
+  padding: 30px;
+}
+section,
+article {
+  padding: 15px;
+}
+header,
+footer {
+  flex-basis: 100%;
+}
+div {
+  display: flex;
+  flex-wrap: wrap;
+}
+div header {
+  padding-bottom: 0px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
+}
+div header > a {
+  flex-basis: 180px;
+  flex-grow: 1;
+}
+div header > ul {
+  display: flex;
+  justify-content: flex-end;
+  flex-basis: calc(100% - 180px);
+}
+div header > ul li a {
+  padding-right: 5px;
+}
+div header > ul li:first-child::after {
+  content: "|";
+}
+div header form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  flex-grow: 1;
+}
+div header nav {
+  flex-basis: 100%;
+}
+div header nav ul {
+  display: flex;
+  flex-flow: wrap column;
+  margin-top: 25px;
+}
+div header nav ul li {
+  display: flex;
+}
+div main {
+  flex-basis: calc(100% / 3 * 2);
+  flex-grow: 1;
+}
+div main section:first-of-type article {
+  display: flex;
+  flex-wrap: wrap;
+  flex-basis: calc(100% / 2);
+}
+div main section:first-of-type article picture {
+  flex-grow: 1;
+}
+div main section:first-of-type article picture img {
+  margin-bottom: 30px;
+}
+div main section:first-of-type article a {
+  padding-top: 10px;
+  color: blue;
+  text-decoration: underline;
+}
+div main section:nth-of-type(2) {
+  display: flex;
+  flex-wrap: wrap;
+}
+div main section:nth-of-type(2) article {
+  flex-basis: calc(100% / 2);
+  flex-grow: 1;
+  min-width: 210px;
+}
+div main section:nth-of-type(2) article img {
+  margin-bottom: 30px;
+}
+div aside {
+  flex-basis: calc(100% / 3);
+  min-width: 320px;
+  flex-grow: 1;
+}
+div aside section article {
+  border-bottom: 1px dashed grey;
+  margin-bottom: 25px;
+}
+div aside section p {
+  margin-bottom: 25px;
+}
+div aside section form {
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 15px;
+}
+div aside section form * {
+  flex-grow: 1;
+  margin-bottom: 10px;
+}
+div aside section form button::after {
+  content: " »";
+}
+div footer {
+  color: white;
+}
+div footer section {
+  padding: 30px;
+}
+div footer section:nth-of-type(1) {
+  background: gray;
+  display: flex;
+  flex-wrap: wrap;
+}
+div footer section:nth-of-type(1) ul {
+  flex-grow: 1;
+  flex-basis: 100%;
+  margin-bottom: 20px;
+}
+div footer section:nth-of-type(1) h2 {
+  flex-basis: 100%;
+  padding-left: 0;
+}
+div footer section:nth-of-type(2) {
+  background: black;
+}
+div footer section:nth-of-type(2) ul {
+  display: flex;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+@media screen and (min-width: 480px) {
+  div header form {
+    transform: translateY(-100%);
+  }
+  div aside section form {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  div aside section form * {
+    width: calc(100% / 3);
+  }
+  div aside section form *:not(:last-child) {
+    margin-right: 15px;
+  }
+  div footer {
+    color: white;
+  }
+  div footer section:nth-of-type(1) ul {
+    flex-grow: 1;
+    flex-basis: calc(100% / 3);
+    margin-bottom: 20px;
+  }
+  div footer section:nth-of-type(1) h2 {
+    flex-basis: 100%;
+  }
+}
+@media screen and (min-width: 768px) {
+  div main section:nth-of-type(2) article {
+    flex-basis: calc(25%);
+    min-width: 180px;
+  }
+  div aside section:first-of-type {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  div aside section:first-of-type h2 {
+    flex-basis: 100%;
+  }
+  div aside section:first-of-type article {
+    flex-basis: calc(100% / 3);
+  }
+}
+@media screen and (min-width: 960px) {
+  div header {
+    align-items: flex-end;
+  }
+  div header > ul {
+    flex-basis: 0;
+  }
+  div header form {
+    flex-direction: row;
+    flex-grow: 0;
+    transform: translateY(0);
+  }
+  div header form > input {
+    margin: 0 15px;
+  }
+  div header nav ul {
+    flex-direction: row;
+    height: 50px;
+    background: darkgray;
+  }
+  div header nav ul li {
+    border: 1px solid grey;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  div main {
+    flex-basis: calc(100% / 3 * 2);
+    flex-grow: 1;
+  }
+  div main section:first-of-type article {
+    display: block;
+  }
+  div main section:first-of-type article picture {
+    float: left;
+    margin-right: 30px;
+  }
+  div main section:nth-of-type(2) {
+    clear: both;
+  }
+  div main section:nth-of-type(2) article {
+    flex-basis: calc(100% / 2);
+  }
+  div aside section form {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  div aside section form * {
+    width: 100%;
+  }
+  div aside section form *:not(:last-child) {
+    margin-right: 0;
+  }
+  div aside section form button {
+    width: 60%;
+  }
+  div aside section:first-of-type {
+    display: block;
+  }
+}
+@media screen and (min-width: 1281px) {
+  div header {
+    justify-content: flex-end;
+    align-items: flex-start;
+  }
+  div header a img {
+    display: block;
+  }
+  div header nav {
+    flex-basis: calc(100% - 200px);
+    transform: translateY(-100%);
+  }
+  div main section:nth-of-type(2) article {
+    flex-basis: calc(100% / 4 - 30px);
+    min-width: 190px;
+  }
+}
+@media screen and (min-width: 1560px) {
+  div main {
+    display: flex;
+    flex-basis: 75%;
+  }
+  div main section:nth-of-type(1) {
+    flex-basis: calc(100% /2);
+    order: 1;
+  }
+  div main section:nth-of-type(1) article {
+    display: flex;
+  }
+  div main section:nth-of-type(1) article picture {
+    order: 1;
+  }
+  div main section:nth-of-type(1) article p,
+  div main section:nth-of-type(1) article a {
+    order: 2;
+  }
+  div main section:nth-of-type(2) {
+    align-content: flex-start;
+    flex-basis: calc(100% / 2);
+  }
+  div main section:nth-of-type(2) article {
+    flex-basis: calc(100% / 2 - 10px);
+  }
+  div aside {
+    flex-basis: 25%;
+  }
+}
