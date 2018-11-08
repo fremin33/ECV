@@ -6,7 +6,9 @@
   "scripts": {
     "test": "jest .",
     "build": "browserify src/vanilla/main.js -o bundle.js -t [ babelify ] -d",
-    "watch": "watchify src/vanilla/main.js -o bundle.js -t [ babelify ] -d -v"
+    "watch": "watchify src/vanilla/main.js -o bundle.js -t [ babelify ] -d -v",
+    "build:jsx": "browserify src/react/main.jsx -o bundle.js -t [ babelify ] -d",
+    "watch:jsx": "browserify src/react/main.jsx -o bundle.js -t [ babelify ] -d"
   },
   "repository": {
     "type": "git",
