@@ -23391,10 +23391,24 @@ var _reactDom = _interopRequireDefault(require("react-dom"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function Personne() {
-  return _react.default.createElement("div", null, "Florian");
+function Personne(props) {
+  return _react.default.createElement("div", null, props.name);
 }
 
-_reactDom.default.render(_react.default.createElement(Personne, null), document.getElementById('root'));
+function Classe() {
+  return _react.default.createElement("div", null, _react.default.createElement(Personne, {
+    name: "Florian"
+  }), _react.default.createElement(Personne, {
+    name: "Romain"
+  }), _react.default.createElement(Personne, {
+    name: "Felix"
+  }), _react.default.createElement(Personne, {
+    name: "Mattieu"
+  }), _react.default.createElement(Personne, {
+    name: "M\xE9gane"
+  }));
+}
+
+_reactDom.default.render(_react.default.createElement(Classe, null), document.getElementById('root'));
 
 },{"react":10,"react-dom":7}]},{},[17]);
