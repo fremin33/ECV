@@ -1,11 +1,11 @@
 import React from 'react';
-import ReactDom from 'react-dom';
+import ReactDOM from 'react-dom';
 
 function Personne () {
     return <div>Florian</div>
 }
 
-ReactDom.render(
-    document.getElementById('root'),
-    <Personne />
+ReactDOM.render(
+    <Personne />,
+    document.getElementById('root')
 );
