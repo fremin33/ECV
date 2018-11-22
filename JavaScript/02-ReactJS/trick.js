@@ -23,3 +23,5 @@ var rest = {
 var array = [1,2,3]
 var [a, ...lerest] = array;
 // a = 2 et lerest = [2, 3]
+
+// function => ne redéfinit pas le this

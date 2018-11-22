@@ -23385,30 +23385,196 @@ if (process.env.NODE_ENV === 'production') {
 },{"./cjs/scheduler-tracing.development.js":11,"./cjs/scheduler-tracing.production.min.js":12,"_process":1}],17:[function(require,module,exports){
 "use strict";
 
-var _react = _interopRequireDefault(require("react"));
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Filter;
 
-var _reactDom = _interopRequireDefault(require("react-dom"));
+var _react = _interopRequireDefault(require("react"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function Personne(props) {
-  return _react.default.createElement("div", null, props.name);
+function Filter(props) {
+  return _react.default.createElement("button", {
+    onClick: props.filter
+  }, "Filter");
 }
 
-function Classe() {
-  return _react.default.createElement("div", null, _react.default.createElement(Personne, {
-    name: "Florian"
-  }), _react.default.createElement(Personne, {
-    name: "Romain"
-  }), _react.default.createElement(Personne, {
-    name: "Felix"
-  }), _react.default.createElement(Personne, {
-    name: "Mattieu"
-  }), _react.default.createElement(Personne, {
-    name: "M\xE9gane"
-  }));
+},{"react":10}],18:[function(require,module,exports){
+"use strict";
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactDom = _interopRequireDefault(require("react-dom"));
+
+var _utils = require("../vanilla/utils");
+
+var _fetchJson = _interopRequireDefault(require("../vanilla/fetchJson"));
+
+var _tweetList = _interopRequireDefault(require("./tweetList.jsx"));
+
+var _filter = _interopRequireDefault(require("./filter.jsx"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+var Root =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Root, _Component);
+
+  function Root() {
+    var _this;
+
+    _classCallCheck(this, Root);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Root).call(this));
+    _this.state = {
+      isFr: false,
+      tweets: []
+    }; // Permet d'utiliser this en tant que Root
+
+    _this.filter = _this.filter.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    return _this;
+  }
+
+  _createClass(Root, [{
+    key: "filter",
+    value: function filter() {
+      this.setState({
+        isFr: !this.state.isFr
+      });
+    } //   Excuter après le premier rendu
+
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var urls = ["https://raw.githubusercontent.com/iOiurson/formation/correction/data/tweets.json", "https://raw.githubusercontent.com/iOiurson/formation/correction/data/tweets2.json"];
+      Promise.all(urls.map(_fetchJson.default)).then(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+            tweets1 = _ref2[0],
+            tweets2 = _ref2[1];
+
+        var tweets = tweets1.concat(tweets2);
+
+        _this2.setState({
+          tweets: tweets
+        });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var tweetsToDisplay = this.state.isFr ? this.state.tweets.filter(_utils.isTweetFr) : this.state.tweets;
+      return _react.default.createElement("div", null, _react.default.createElement(_filter.default, {
+        filter: this.filter
+      }), _react.default.createElement(_tweetList.default, {
+        tweets: tweetsToDisplay
+      }));
+    }
+  }]);
+
+  return Root;
+}(_react.Component);
+
+_reactDom.default.render(_react.default.createElement(Root, null), document.getElementById("root"));
+
+},{"../vanilla/fetchJson":21,"../vanilla/utils":22,"./filter.jsx":17,"./tweetList.jsx":20,"react":10,"react-dom":7}],19:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Tweet;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Tweet(props) {
+  return _react.default.createElement("div", null, props.tweet.text, props.tweet.created_at, props.ouvert);
 }
 
-_reactDom.default.render(_react.default.createElement(Classe, null), document.getElementById('root'));
+},{"react":10}],20:[function(require,module,exports){
+"use strict";
 
-},{"react":10,"react-dom":7}]},{},[17]);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = TweetList;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _tweet = _interopRequireDefault(require("./tweet.jsx"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function TweetList(props) {
+  var myTweet = props.tweets.map(function (tweet) {
+    return _react.default.createElement(_tweet.default, {
+      key: tweet.id,
+      tweet: tweet
+    });
+  });
+  return _react.default.createElement("div", null, myTweet);
+}
+
+},{"./tweet.jsx":19,"react":10}],21:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+
+function _default(url) {
+  return fetch(url).then(function (resp) {
+    return resp.json();
+  });
+}
+
+},{}],22:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.isTweetFr = isTweetFr;
+
+function isTweetFr(tweet) {
+  // return "fr" === tweet.lang;
+  return tweet.lang && tweet.lang.startsWith('fr');
+}
+
+},{}]},{},[18]);
