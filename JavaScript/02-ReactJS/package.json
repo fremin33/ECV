@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest .",
-    "build:jsx": "browserify src/react/main.jsx -o bundle.js -t [ babelify ] -d",
-    "watch:jsx": "watchify src/react/main.jsx -o bundle.js -t [ babelify ] -v"
+    "build:jsx": "browserify src/react/main.jsx -o bundle.js -t [ babelify ] -d --extension=jsx",
+    "watch:jsx": "watchify src/react/main.jsx -o bundle.js -t [ babelify ] -v --extension=jsx"
   },
   "repository": {
     "type": "git",

@@ -23411,9 +23411,13 @@ var _utils = require("../vanilla/utils");
 
 var _fetchJson = _interopRequireDefault(require("../vanilla/fetchJson"));
 
-var _tweetList = _interopRequireDefault(require("./tweetList.jsx"));
+var _tweetList = _interopRequireDefault(require("./tweetList"));
 
-var _filter = _interopRequireDefault(require("./filter.jsx"));
+var _filter = _interopRequireDefault(require("./filter"));
+
+var _order = _interopRequireDefault(require("./order"));
+
+var _select = _interopRequireDefault(require("./select"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23458,10 +23462,12 @@ function (_Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Root).call(this));
     _this.state = {
       isFr: false,
+      order: false,
       tweets: []
     }; // Permet d'utiliser this en tant que Root
 
     _this.filter = _this.filter.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.order = _this.order.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
@@ -23470,6 +23476,13 @@ function (_Component) {
     value: function filter() {
       this.setState({
         isFr: !this.state.isFr
+      });
+    }
+  }, {
+    key: "order",
+    value: function order() {
+      this.setState({
+        order: !this.state.order
       });
     } //   Excuter après le premier rendu
 
@@ -23494,9 +23507,19 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var tweetsToDisplay = this.state.isFr ? this.state.tweets.filter(_utils.isTweetFr) : this.state.tweets;
+      var _this3 = this;
+
+      var tweets = this.state.isFr ? this.state.tweets.filter(_utils.isTweetFr) : this.state.tweets;
+      var tweetsToDisplay = tweets.sort(function (a, b) {
+        var mult = _this3.state.order ? -1 : 1;
+        return mult * (new Date(b.created_at) - new Date(a.created_at));
+      });
       return _react.default.createElement("div", null, _react.default.createElement(_filter.default, {
         filter: this.filter
+      }), _react.default.createElement(_order.default, {
+        order: this.order
+      }), _react.default.createElement(_select.default, {
+        tweets: tweetsToDisplay
       }), _react.default.createElement(_tweetList.default, {
         tweets: tweetsToDisplay
       }));
@@ -23508,7 +23531,48 @@ function (_Component) {
 
 _reactDom.default.render(_react.default.createElement(Root, null), document.getElementById("root"));
 
-},{"../vanilla/fetchJson":21,"../vanilla/utils":22,"./filter.jsx":17,"./tweetList.jsx":20,"react":10,"react-dom":7}],19:[function(require,module,exports){
+},{"../vanilla/fetchJson":23,"../vanilla/utils":24,"./filter":17,"./order":19,"./select":20,"./tweetList":22,"react":10,"react-dom":7}],19:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Order;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Order(props) {
+  return _react.default.createElement("button", {
+    onClick: props.order
+  }, "Trier");
+}
+
+},{"react":10}],20:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Select;
+
+var _react = _interopRequireWildcard(require("react"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function Select(props) {
+  return _react.default.createElement("div", null, _react.default.createElement("select", {
+    name: "author"
+  }, props.tweets.map(function (tweet) {
+    return _react.default.createElement("option", {
+      key: tweet.id,
+      author: tweet.user.screen_name
+    }, tweet.user.screen_name);
+  })));
+}
+
+},{"react":10}],21:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -23521,10 +23585,25 @@ var _react = _interopRequireDefault(require("react"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Tweet(props) {
-  return _react.default.createElement("div", null, props.tweet.text, props.tweet.created_at, props.ouvert);
+  var rtDiv = props.tweet.retweeted_status ? _react.default.createElement("h3", {
+    className: "retweet"
+  }, "retweet") : undefined;
+  return _react.default.createElement("div", {
+    className: "list"
+  }, _react.default.createElement("li", null, _react.default.createElement("div", {
+    className: "content"
+  }, _react.default.createElement("div", {
+    className: "avatar"
+  }, _react.default.createElement("img", {
+    src: props.tweet.user.profile_image_url
+  })), _react.default.createElement("div", null, _react.default.createElement("div", {
+    className: "entete"
+  }, _react.default.createElement("h3", null, "@", props.tweet.user.screen_name), rtDiv), _react.default.createElement("p", null, props.tweet.text))), _react.default.createElement("p", {
+    className: "date"
+  }, props.tweet.created_at)));
 }
 
-},{"react":10}],20:[function(require,module,exports){
+},{"react":10}],22:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -23534,7 +23613,7 @@ exports.default = TweetList;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _tweet = _interopRequireDefault(require("./tweet.jsx"));
+var _tweet = _interopRequireDefault(require("./tweet"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23547,10 +23626,10 @@ function TweetList(props) {
       tweet: tweet
     });
   });
-  return _react.default.createElement("div", null, myTweet);
+  return _react.default.createElement("div", null, _react.default.createElement("ul", null, myTweet));
 }
 
-},{"./tweet.jsx":19,"react":10}],21:[function(require,module,exports){
+},{"./tweet":21,"react":10}],23:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -23564,7 +23643,7 @@ function _default(url) {
   });
 }
 
-},{}],22:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -23575,6 +23654,10 @@ exports.isTweetFr = isTweetFr;
 function isTweetFr(tweet) {
   // return "fr" === tweet.lang;
   return tweet.lang && tweet.lang.startsWith('fr');
+}
+
+function orderTweet(tweet) {
+  return new Date(b.created_at) - new Date(a.created_at);
 }
 
 },{}]},{},[18]);
