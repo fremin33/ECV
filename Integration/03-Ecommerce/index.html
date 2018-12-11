@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+        crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <title>03-Ecommerce</title>
 </head>
@@ -16,111 +19,90 @@
     <body>
         <header>
             <nav>
-                <a href="/">Home</a>
-                <a href="/new">New Products</a>
-                <a href="/all">All Products</a>
-                <a href="/cart">Cart <span id="nbProduct">0</span> produits</a>
+                <ul>
+                    <li> <a href="/">Home</a></li>
+                    <li> <a href="/new">New Products</a></li>
+                    <li><a href="#"><img src="img/logo.png" alt="Logo Nike"></a></li>
+                    <li><a href="/all">All Products</a></li>
+                    <li> <a href="/cart">Panier (<span class="nbProduct">0</span>)</a></li>
+                </ul>
             </nav>
+
+
+
         </header>
-        <main>
+
+        <div id="cart-pop-up">
+            <header>
+                <div>
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="nbProduct">0</span>
+                </div>
+                <div>
+                    <p>Total: $<span id="totalPrice">0</span></p>
+                </div>
+            </header>
+            <ul>
+            </ul>
+
+            <a href="#" class="button">Go to Cart</a>
+        </div>
+        <section>
             <section>
                 <article>
                     <form method="GET">
-                        <input type="hidden" name="ProductId" value="p-01">
-                        <input type="text" name="Name" value="Notebook Basic 15">
-                        <input type="text" name="Price" value="956">
-                        <input type="number" name="Quantity" value="1" min="1">
-                        <input type="image" name="Picture" value="http://placehold.it/200x200" src="http://placehold.it/200x200">
-                        <input type="submit" value="Add to cart">
+                        <header>
+                            <img id="p-01" src="img/p-01-black.png" alt="nike air max 90 blue and black">
+                        </header>
+                        <main>
+                            <input type="hidden" name="productId" value="p-01">
+                            <input type="text" name="name" value="NIKE AIR MAX 1 OG iD">
+                            <input type="text" name="price" value="160">
+                            <input type="number" name="quantity" value="1" min="1">
+                        </main>
+                        <footer>
+                            <ul data-id="p-01">
+                                <li><input type="radio" data-img="img/p-01-black.png" name="color" value="black"
+                                        checked></li>
+                                <li><input type="radio" data-img="img/p-01-blue.png" name="color" value="blue"></li>
+                                <li><input type="radio" data-img="img/p-01-red.png" name="color" value="red"></li>
+                            </ul>
+                            <input type="submit" value="Add to cart">
+                        </footer>
                     </form>
                 </article>
                 <article>
                     <form method="GET">
-                        <input type="hidden" name="ProductId" value="p-02">
-                        <input type="text" name="Name" value="Notebook Basic 16">
-                        <input type="text" name="Price" value="1249">
-                        <input type="number" name="Quantity" value="1" min="1">
-                        <input type="image" name="Picture" value="http://placehold.it/200x200" src="http://placehold.it/200x200">
-                        <input type="submit" value="Add to cart">
-
-                    </form>
-                </article>
-                <article>
-                    <form method="GET">
-                        <input type="hidden" name="ProductId" value="p-03">
-                        <input type="text" name="Name" value="Notebook Basic 17">
-                        <input type="text" name="Price" value="1459">
-                        <input type="number" name="Quantity" value="1" min="1">
-                        <input type="image" name="Picture" value="http://placehold.it/200x200" src="http://placehold.it/200x200">
-                        <input type="submit" value="Add to cart">
-                    </form>
-                </article>
-                <article>
-                    <form method="GET">
-                        <input type="hidden" name="ProductId" value="p-04">
-                        <input type="text" name="Name" value="Notebook Basic 18">
-                        <input type="text" name="Price" value="1659">
-                        <input type="number" name="Quantity" value="1" min="1">
-                        <input type="image" name="Picture" value="http://placehold.it/200x200" src="http://placehold.it/200x200">
-                        <input type="submit" value="Add to cart">
-
-                    </form>
-                </article>
-                <article>
-                    <form method="GET">
-                        <input type="hidden" name="ProductId" value="p-05">
-                        <input type="text" name="Name" value="Notebook Professional 15">
-                        <input type="text" name="Price" value="1559">
-                        <input type="number" name="Quantity" value="1" min="1">
-                        <input type="image" name="Picture" value="http://placehold.it/200x200" src="http://placehold.it/200x200">
-                        <input type="submit" value="Add to cart">
-                    </form>
-                </article>
-                <article>
-                    <form method="GET">
-                        <input type="hidden" name="ProductId" value="p-06">
-                        <input type="text" name="Name" value="Notebok Professional 16">
-                        <input type="text" name="Price" value="1659">
-                        <input type="number" name="Quantity" value="1" min="1">
-                        <input type="image" name="Picture" value="http://placehold.it/200x200" src="http://placehold.it/200x200">
-                        <input type="submit" value="Add to cart">
-                    </form>
-                </article>
-                <article>
-                    <form method="GET">
-                        <input type="hidden" name="ProductId" value="p-07">
-                        <input type="text" name="Name" value="Notebook Professional 17">
-                        <input type="text" name="Price" value="1899">
-                        <input type="number" name="Quantity" value="1" min="1">
-                        <input type="image" name="Picture" value="http://placehold.it/200x200" src="http://placehold.it/200x200">
-                        <input type="submit" value="Add to cart">
-                    </form>
-                </article>
-                <article>
-                    <form method="GET">
-                        <input type="hidden" name="ProductId" value="p-01">
-                        <input type="text" name="Name" value="Notebook Professional 18">
-                        <input type="text" name="Price" value="1999">
-                        <input type="number" name="Quantity" value="1" min="1">
-                        <input type="image" name="Picture" value="http://placehold.it/200x200" src="http://placehold.it/200x200">
-                        <input type="submit" value="Add to cart">
-
+                        <header>
+                            <img id="p-02" src="img/p-02-whitesmoke.png" alt="Nike Air Force 1 '07">
+                        </header>
+                        <main class="shoe--info">
+                            <input type="hidden" name="productId" value="p-02">
+                            <input type="text" name="name" value="Nike Air Force 1 '07">
+                            <input type="text" name="price" value="80">
+                            <input type="number" name="quantity" value="1" min="1">
+                        </main>
+                        <footer>
+                            <ul data-id="p-02">
+                                <li><input type="radio" name="color" data-img="img/p-02-whitesmoke.png" value="whitesmoke"
+                                        checked></li>
+                                <li><input type="radio" name="color" data-img="img/p-02-black.png" value="black"></li>
+                                <li><input type="radio" name="color" data-img="img/p-02-burlywood.png" value="burlywood"></li>
+                            </ul>
+                            <input type="submit" value="Add to cart">
+                        </footer>
                     </form>
                 </article>
             </section>
-        </main>
-        <footer>
-            <nav>
-                <a href="/">Home</a>
-                <a href="/about">About us</a>
-                <a href="/contact">Contact us</a>
-            </nav>
-        </footer>
+        </section>
 
         <body>
 
     </html>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/Html.js"></script>
+    <script src="js/Storage.js"></script>
+    <script src="js/Utils.js"></script>
+    <script src="js/Listener.js"></script>
     <script src="index.js"></script>
 </body>
 

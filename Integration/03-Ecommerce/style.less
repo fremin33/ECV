@@ -1,5 +1,177 @@
 body {
-    header {
-        background: red;
+  background: #e9e9e9;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  header {
+    nav {
+      ul {
+        height: 75px;
+        background: white;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: center;
+        li {
+          img {
+            height: 50px;
+            width: auto;
+          }
+          a {
+            color: #111;
+            font-weight: bold;
+          }
+        }
+      }
     }
+  }
+  #cart-pop-up {
+    width: 320px;
+    background: white;
+    padding: 20px;
+    color: #111;
+    font-size: 13px;
+    font-weight: bold;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    position: absolute;
+    right: 3px;
+    header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #e8e8e8;
+      padding-bottom: 20px;
+    }
+    ul {
+      li {
+        display: flex;
+        align-items: center;
+        height: 80px;
+        p:first-of-type {
+          padding-bottom: 5px;
+        }
+        p:last-of-type {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          span:nth-of-type(2) {
+            color: #6394f8;
+            text-transform: capitalize;
+            select {
+              background: none;
+              border: none;
+            }
+          }
+          span:last-of-type {
+            color: #6394f8;
+          }
+        }
+        img {
+          width: 100px;
+        }
+        div {
+          padding-left: 20px;
+        }
+      }
+    }
+    a {
+      background: black;
+      color: white;
+      text-align: center;
+      padding: 12px;
+      text-decoration: none;
+      display: block;
+      border-radius: 3px;
+      font-size: 14px;
+      margin: 25px 0 15px 0;
+    }
+  }
+  section {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    article {
+      flex-basis: 315px;
+      height: 400px;
+      background: #fff;
+      border-radius: 2px;
+      margin: 10px;
+      form {
+        display: block;
+        padding: 60px 33px 12px 33px;
+        img {
+          max-width: 100%;
+          width: 250px;
+          margin-bottom: 30px;
+        }
+        main {
+          input {
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            &[type="number"] {
+              margin-top: 10px;
+              font-size: 14px;
+              outline: 0;
+              background-color: transparent;
+              box-shadow: none;
+              border: 2px solid #444;
+              padding: 8px 19px;
+              border-radius: 3px;
+              font-weight: 400;
+              font-family: "Roboto", sans-serif;
+              color: #444;
+              font-weight: bold;
+            }
+          }
+        }
+        footer {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-top: 1px solid #f4f4f5;
+          padding-top: 30px;
+          ul {
+            margin: 0;
+            padding: 0;
+            > li {
+              width: 20px;
+              height: 20px;
+              border-radius: 50%;
+              display: inline-block;
+              margin: 0 4px;
+              cursor: pointer;
+              &:nth-child(1) {
+                background-color: red;
+              }
+              &:nth-child(2) {
+                background-color: blue;
+              }
+              &:nth-child(3) {
+                background-color: green;
+              }
+              input {
+                opacity: 0;
+                cursor: pointer;
+              }
+            }
+          }
+          input {
+            &[type="submit"] {
+              font-size: 14px;
+              outline: 0;
+              background-color: transparent;
+              box-shadow: none;
+              border: 2px solid #444;
+              padding: 8px 19px;
+              border-radius: 3px;
+              font-weight: 400;
+              font-family: "Roboto", sans-serif;
+              color: #444;
+              font-weight: bold;
+            }
+          }
+          color: burlywood;
+        }
+      }
+    }
+  }
 }
