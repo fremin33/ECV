@@ -1,8 +1,8 @@
 ###> symfony/framework-bundle ###
 /.env
 /public/bundles/
-/var/
 /vendor/
+/var/
 ###< symfony/framework-bundle ###
 
 ###> symfony/webpack-encore-pack ###
@@ -20,3 +20,5 @@ yarn-error.log
 .phpunit
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+/.idea
+/build

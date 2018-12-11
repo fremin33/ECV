@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block pageTitle %}
+    <h1 class="display-4">Editing user!</h1>
+{% endblock %}
+{% block pageDescription %}
+    <p class="lead">Edit the form bellow.</p>
+{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+    {{ form_row(form.name) }}
+    <button class="btn btn-success" type="submit"><i class="fas fa-plus fa-2x"></i></button>
+    {{ form_end(form) }}
+{% endblock %}

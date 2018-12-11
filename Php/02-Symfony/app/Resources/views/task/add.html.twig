@@ -1,17 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block header %}
-    <div class="jumbotron">
-        <h1 class="display-4">Adding a new task to the to do list!</h1>
-        <p class="lead">Fill in the form bellow.</p>
-        <hr class="my-4">
-    </div>
+{% block pageTitle %}
+	<h1 class="display-4">Adding a new task to the to do list!</h1>
+{% endblock %}
+{% block pageDescription %}
+	<p class="lead">Fill in the form bellow.</p>
 {% endblock %}
 
 {% block body %}
 	{{ form_start(form) }}
-		{{ form_row(form.author) }}
-		{{ form_row(form.title) }}
+		{{ form_row(form.author, { 'attr': {'list': 'users','class': 'w50'} }) }}
+		<datalist id="users">
+		{% for user in users %}
+			<option value="{{user.name}}"></option>
+		{% endfor %}
+		</datalist>
+    	{{ form_row(form.title, {'attr': {'class': 'w50'} }) }}
 		{{ form_row(form.description) }}
 		{{ form_row(form.complete) }}
 		<button class="btn btn-success" type="submit"><i class="fas fa-plus fa-2x"></i></button>

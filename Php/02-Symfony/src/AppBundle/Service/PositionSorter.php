@@ -5,7 +5,7 @@ namespace AppBundle\Service;
 
 class PositionSorter
 {
-	private $array;
+	private $array = [];
 	private $increment;
 
     public function sort($entity, $entityClassName, $manager, $positionStart, $positionEnd, $movement)
@@ -21,9 +21,14 @@ class PositionSorter
 		        $this->increment = 1; 
     			break;
     	}
-        foreach ($this->array as $item) {
-            $item->setPosition($item->getPosition() + $this->increment);
+    	if (!empty($this->array)) {
+            foreach ($this->array as $item) {
+                $item->setPosition($item->getPosition() + $this->increment);
+            }
         }
-        $entity->setPosition($positionEnd);
+
+        if ($positionEnd !== null) {
+            $entity->setPosition($positionEnd);
+        }
     }
 }

@@ -27,7 +27,7 @@ class TaskSubscriber implements EventSubscriber
         if (!$entity instanceof Task) {
             return;
         }
-        $manager = $entityManager = $args->getObjectManager();
+        $manager = $args->getObjectManager();
         $entity->setPosition($manager->getRepository(Task::class)->getMaxPosition() + 1);
     }
 }

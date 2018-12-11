@@ -13,11 +13,22 @@ use AppBundle\Entity\Task;
  */
 class TaskRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function findAll()
+    public function getFilteredTasks($formData)
     {
-        return $this->findBy(array(), array('position' => 'ASC'));
-    }
+        $qb =  $this->createQueryBuilder('t')
+            ->addSelect('u')
+            ->join('t.author', 'u')
+            ->orderBy($formData['field'], $formData['order']);
 
+        if (!empty($formData['complete'])){
+            $qb->andWhere('t.complete = 1');
+        }
+        if (!empty($formData['author'])){
+            $qb->andWhere('u = :user')->setParameter('user', $formData['author']);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
     public function findByGreaterStartPositionAndLowerOrEqualEndPosition($positionStart, $positionEnd) {
         $qb = $this->createQueryBuilder('t')
             ->where('t.position > :positionStart')

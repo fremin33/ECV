@@ -3,7 +3,7 @@ parameters:
     database_host: 127.0.0.1
     database_port: null
     database_name: ecv_todolist
-    database_user: localhost    
+    database_user: localhost
     database_password: localhost
     mailer_transport: smtp
     mailer_host: 127.0.0.1

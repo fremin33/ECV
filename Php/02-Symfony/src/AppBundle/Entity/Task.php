@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Task
@@ -43,7 +44,8 @@ class Task
     private $complete;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="tasks")
+     * @Assert\NotNull
      */
     private $author;
 
@@ -125,16 +127,6 @@ class Task
         $this->complete = $complete;
 
         return $this;
-    }
-
-    /**
-     * Get complete
-     *
-     * @return bool
-     */
-    public function getComplete()
-    {
-        return $this->complete;
     }
 
     /**
