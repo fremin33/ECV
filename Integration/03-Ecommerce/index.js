@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function (event) {
-    localStorage.clear();
     Method.GetToPost();
     Method.inizializeDom();
     Method.addColorRadio();
@@ -20,7 +19,7 @@ const Method = {
         }
     },
     inizializeDom: function () {
-        if (localStorage.getItem('userCart') !== null)
-            Html.createLiForCart(Storage.getUserCart());
+        if (Storage.getUserCart().products.length > 0)
+            Html.createLiForCart(Storage.getUserCart().products);
     }
 };

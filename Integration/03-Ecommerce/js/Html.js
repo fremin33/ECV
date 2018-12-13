@@ -10,8 +10,8 @@ const Html = {
             if (!Html.updateHtmlInBody(product, priceTotalProduct))
                 Html.insertHtmlInBody(product, priceTotalProduct)
         })
-        Html.updateTotalPrice(Storage.getTotalCart().price);
-        Html.updateTotalQuantity(Storage.getTotalCart().quantity);
+        Html.updateTotalPrice(Storage.getUserCart().total.price);
+        Html.updateTotalQuantity(Storage.getUserCart().total.quantity);
     },
     /**
      * Update product in HtmlContent
@@ -66,6 +66,12 @@ const Html = {
         })
         Html.addOptionToSelect(selectQuantity, product)
         Html.appendElementInBody(li, img, div, pName, spanName, pInfo, spanPrice, spanQuantity, selectQuantity, spanTrash);
+        setTimeout(() => {
+            Html.addStyle(li, {
+                opacity: '1',
+                height: '80px'
+            })
+        }, 200);
     },
     /**
      * Update img HtmlContent 
@@ -110,9 +116,15 @@ const Html = {
      */
     removeProduct: function (productIdToDelete) {
         const elem = document.getElementById(productIdToDelete);
-        elem.remove();
-        Html.updateTotalPrice(Storage.getTotalCart().price);
-        Html.updateTotalQuantity(Storage.getTotalCart().quantity);
+        Html.addStyle(elem, {
+            opacity: '0',
+            height: '0'
+        })
+        setTimeout(() => {
+            elem.remove();
+            Html.updateTotalPrice(Storage.getUserCart().total.price);
+            Html.updateTotalQuantity(Storage.getUserCart().total.quantity);
+        }, 300);
     },
     /**
      * Create HtmlElement with properties
@@ -173,5 +185,15 @@ const Html = {
         pInfo.append(spanQuantity);
         pInfo.append(spanTrash);
         this.cart.append(li);
+    },
+    /**
+     * Add style with properties
+     * @param  {String} type
+     * @param  {Object} properties=false
+     */
+    addStyle: function (elem, properties = false) {
+        for (var key in properties) {
+            elem.style[key] = properties[key];
+        }
     }
 }

@@ -13,92 +13,84 @@
 </head>
 
 <body>
-
-    <html>
-
-    <body>
-        <header>
-            <nav>
-                <ul>
-                    <li> <a href="/">Home</a></li>
-                    <li> <a href="/new">New Products</a></li>
-                    <li><a href="#"><img src="img/logo.png" alt="Logo Nike"></a></li>
-                    <li><a href="/all">All Products</a></li>
-                    <li> <a href="/cart">Panier (<span class="nbProduct">0</span>)</a></li>
-                </ul>
-            </nav>
-
-
-
-        </header>
-
-        <div id="cart-pop-up">
-            <header>
-                <div>
-                    <i class="fas fa-shopping-cart"></i>
-                    <span class="nbProduct">0</span>
-                </div>
-                <div>
-                    <p>Total: $<span id="totalPrice">0</span></p>
-                </div>
-            </header>
+    <header>
+        <nav>
             <ul>
+                <li> <a href="/">Home</a></li>
+                <li> <a href="/new">New Products</a></li>
+                <li><a href="#"><img src="img/logo.png" alt="Logo Nike"></a></li>
+                <li><a href="/all">All Products</a></li>
+                <li> <a href="/cart">Panier (<span id="nbProduct">0</span>)</a></li>
             </ul>
+        </nav>
 
-            <a href="#" class="button">Go to Cart</a>
-        </div>
+
+
+    </header>
+
+    <div id="cart-pop-up">
+        <header>
+            <div>
+                <i class="fas fa-shopping-cart"></i>
+                <span class="nbProduct">0</span>
+            </div>
+            <div>
+                <p>Total: $<span id="totalPrice">0</span></p>
+            </div>
+        </header>
+        <ul>
+        </ul>
+
+        <a href="#" class="button">Go to Cart</a>
+    </div>
+    <section>
         <section>
-            <section>
-                <article>
-                    <form method="GET">
-                        <header>
-                            <img id="p-01" src="img/p-01-black.png" alt="nike air max 90 blue and black">
-                        </header>
-                        <main>
-                            <input type="hidden" name="productId" value="p-01">
-                            <input type="text" name="name" value="NIKE AIR MAX 1 OG iD">
-                            <input type="text" name="price" value="160">
-                            <input type="number" name="quantity" value="1" min="1">
-                        </main>
-                        <footer>
-                            <ul data-id="p-01">
-                                <li><input type="radio" data-img="img/p-01-black.png" name="color" value="black"
-                                        checked></li>
-                                <li><input type="radio" data-img="img/p-01-blue.png" name="color" value="blue"></li>
-                                <li><input type="radio" data-img="img/p-01-red.png" name="color" value="red"></li>
-                            </ul>
-                            <input type="submit" value="Add to cart">
-                        </footer>
-                    </form>
-                </article>
-                <article>
-                    <form method="GET">
-                        <header>
-                            <img id="p-02" src="img/p-02-whitesmoke.png" alt="Nike Air Force 1 '07">
-                        </header>
-                        <main class="shoe--info">
-                            <input type="hidden" name="productId" value="p-02">
-                            <input type="text" name="name" value="Nike Air Force 1 '07">
-                            <input type="text" name="price" value="80">
-                            <input type="number" name="quantity" value="1" min="1">
-                        </main>
-                        <footer>
-                            <ul data-id="p-02">
-                                <li><input type="radio" name="color" data-img="img/p-02-whitesmoke.png" value="whitesmoke"
-                                        checked></li>
-                                <li><input type="radio" name="color" data-img="img/p-02-black.png" value="black"></li>
-                                <li><input type="radio" name="color" data-img="img/p-02-burlywood.png" value="burlywood"></li>
-                            </ul>
-                            <input type="submit" value="Add to cart">
-                        </footer>
-                    </form>
-                </article>
-            </section>
+            <article>
+                <form method="GET">
+                    <header>
+                        <img id="p-01" src="img/p-01-black.png" alt="nike air max 90 blue and black">
+                    </header>
+                    <main>
+                        <input type="hidden" name="productId" value="p-01">
+                        <input type="text" name="name" value="NIKE AIR MAX 1 OG iD">
+                        <input type="text" name="price" value="160">
+                        <input type="number" name="quantity" value="1" min="1">
+                    </main>
+                    <footer>
+                        <ul data-id="p-01">
+                            <li><input type="radio" data-img="img/p-01-black.png" name="color" value="black" checked></li>
+                            <li><input type="radio" data-img="img/p-01-blue.png" name="color" value="blue"></li>
+                            <li><input type="radio" data-img="img/p-01-red.png" name="color" value="red"></li>
+                        </ul>
+                        <input type="submit" value="Add to cart">
+                    </footer>
+                </form>
+            </article>
+            <article>
+                <form method="GET">
+                    <header>
+                        <img id="p-02" src="img/p-02-whitesmoke.png" alt="Nike Air Force 1 '07">
+                    </header>
+                    <main class="shoe--info">
+                        <input type="hidden" name="productId" value="p-02">
+                        <input type="text" name="name" value="Nike Air Force 1 '07">
+                        <input type="text" name="price" value="80">
+                        <input type="number" name="quantity" value="1" min="1">
+                    </main>
+                    <footer>
+                        <ul data-id="p-02">
+                            <li><input type="radio" name="color" data-img="img/p-02-whitesmoke.png" value="whitesmoke"
+                                    checked></li>
+                            <li><input type="radio" name="color" data-img="img/p-02-black.png" value="black"></li>
+                            <li><input type="radio" name="color" data-img="img/p-02-burlywood.png" value="burlywood"></li>
+                        </ul>
+                        <input type="submit" value="Add to cart">
+                    </footer>
+                </form>
+            </article>
         </section>
+    </section>
 
-        <body>
-
-    </html>
     <script src="js/Html.js"></script>
     <script src="js/Storage.js"></script>
     <script src="js/Utils.js"></script>

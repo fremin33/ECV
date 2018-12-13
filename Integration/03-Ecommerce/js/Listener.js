@@ -26,7 +26,7 @@ const Listener = {
      * Add an event listener when click on TrashBtn
      */
     listenOnRemoveToCart: function () {
-        Storage.removeProductInStorage(Storage.getUserCart(), this.getAttribute('data-productId'));
+        Storage.removeProductInStorage(Storage.getUserCart().products, this.getAttribute('data-productId'));
     },
     /**
      * Add an event listener when click on AddToCartBtn
@@ -52,7 +52,7 @@ const Listener = {
      */
     listenStorage: function () {
         window.addEventListener("storage", function (e) {
-            (e.detail.isForCreate) ? Html.createLiForCart(Storage.getUserCart()): Html.removeProduct(e.detail.data);
+            (e.detail.isForCreate) ? Html.createLiForCart(Storage.getUserCart().products): Html.removeProduct(e.detail.data);
         });
     }
 }

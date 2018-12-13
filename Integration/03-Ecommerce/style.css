@@ -36,10 +36,19 @@ body #cart-pop-up header {
   border-bottom: 1px solid #e8e8e8;
   padding-bottom: 20px;
 }
+body #cart-pop-up ul {
+  overflow: hidden;
+}
 body #cart-pop-up ul li {
   display: flex;
   align-items: center;
+  height: 0;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+body #cart-pop-up ul li:hover {
   height: 80px;
+  opacity: 1;
 }
 body #cart-pop-up ul li p:first-of-type {
   padding-bottom: 5px;

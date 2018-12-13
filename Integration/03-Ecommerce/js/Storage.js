@@ -6,17 +6,17 @@ const Storage = {
      * @param {Boolean} addQuantity
      */
     addProductInStorage: function (product, addQuantity = true) {
-        let cart = Storage.getUserCart();
+        let cart = (Storage.getUserCart()) ? Storage.getUserCart() : {};
         if (Storage.hasData()) {
-            if (Storage.checkIfProductIsInCart(cart, product)) {
-                cart = (addQuantity) ? Storage.addQuantityOnProductInStorage(cart, product) : Storage.removeQuantityOnProductInStorage(cart, product);
+            if (Storage.checkIfProductIsInCart(cart.products, product)) {
+                cart.products = (addQuantity) ? Storage.addQuantityOnProductInStorage(cart.products, product) : Storage.removeQuantityOnProductInStorage(cart.products, product);
             } else {
-                cart = Storage.addNewProductInStorage(cart, product)
+                cart.products = Storage.addNewProductInStorage(cart.products, product)
             }
         } else {
-            cart = Storage.addFirstProductInStorage(product)
+            cart.products = Storage.addFirstProductInStorage(product)
         }
-        Storage.setTotalCart(cart);
+        cart.total = Storage.setTotalCart(cart.products);
         Storage.setUserCart(cart, {isForCreate: true});
     },
     /**
@@ -89,10 +89,11 @@ const Storage = {
      * @param  {Number} productIdToDelete
      */
     removeProductInStorage: function (cart, productIdToDelete) {
-        let newCart = cart.filter(product => {
+        let newCart = {};
+        newCart.products = cart.filter(product => {
             return product.productId !== productIdToDelete
         });
-        Storage.setTotalCart(newCart);
+        newCart.total = Storage.setTotalCart(newCart.products);
         Storage.setUserCart(newCart, {
             isForCreate: false,
             data: productIdToDelete
@@ -123,13 +124,6 @@ const Storage = {
         }));
     },
     /**
-     * Return an Array of localstorage
-     * @return  {Array}
-     */
-    getTotalCart: function () {
-        return JSON.parse(localStorage.getItem("totalCart"));
-    },
-    /**
      * Insert Array in localstorage
      * @param  {Array} cart
      */
@@ -141,6 +135,6 @@ const Storage = {
                 total.price += product.quantity * product.price;
             });
         }
-        localStorage.setItem("totalCart", JSON.stringify(total));
+        return total;
     }
 }
