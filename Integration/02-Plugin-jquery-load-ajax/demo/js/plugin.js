@@ -72,9 +72,9 @@ let ManageBrowser = {
 // Gestion du chargement de la page
 let Page = {
     getPage: function (settings, link, event) {
+        event.preventDefault();
         url = settings.baseUrl.substr(0, settings.baseUrl.lastIndexOf("/"));
         link = (link === "") ? settings.baseFile : link;
-        event.preventDefault();
         $(`.${settings.output}`).load(`${url}/${link} #${settings.dataDiv}`, () => {
             Loader.showLoader();
         });
