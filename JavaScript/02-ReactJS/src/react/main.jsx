@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import { isTweetFr } from "../vanilla/utils";
+import { isTweetFr, tweetsByAuthor,getHashtags, tweetsByHashtag } from "../vanilla/utils";
 import fetchJson from "../vanilla/fetchJson";
 import TweetList from "./tweetList";
-import Filter from "./filter";
-import Order from "./order";
-import Select from "./select";
+import OrderDate from "./orderDate";
+import SelectAuthor from "./selectAuthor";
+import FilterLanguage from "./filterLanguage";
+import SelectHashTag from './selectHashtag'
 
 class Root extends Component {
   constructor() {
@@ -13,24 +14,39 @@ class Root extends Component {
     this.state = {
       isFr: false,
       order: false,
+      filterByAuthor: "All",
+      filterByHashtag: "All",
       tweets: []
     };
     // Permet d'utiliser this en tant que Root
     this.filter = this.filter.bind(this);
     this.order = this.order.bind(this);
+    this.filterByAuthor = this.filterByAuthor.bind(this);
+    this.filterByHashtag = this.filterByHashtag.bind(this);
   }
   filter() {
     this.setState({
       isFr: !this.state.isFr
     });
   }
-  order () {
+  order() {
     this.setState({
       order: !this.state.order
-    })
+    });
+  }
+  filterByAuthor(author) {
+    this.setState({
+      filterByAuthor: author
+    });
+  }
+  filterByHashtag(hastag) {
+    this.setState({
+      filterByHashtag: hastag
+    });
   }
 
-//   Excuter après le premier rendu
+
+  //   Excuter après le premier rendu
   componentDidMount() {
     const urls = [
       "https://raw.githubusercontent.com/iOiurson/formation/correction/data/tweets.json",
@@ -45,21 +61,37 @@ class Root extends Component {
   }
 
   render() {
-      const tweets = this.state.isFr ? this.state.tweets.filter(isTweetFr) : this.state.tweets;
-      const tweetsToDisplay = tweets.sort((a,b) => {
-        const mult = this.state.order ? -1 : 1;
-        return mult * (new Date(b.created_at) - new Date(a.created_at));
-      });
+    let tweets = this.state.isFr
+      ? this.state.tweets.filter(isTweetFr)
+      : this.state.tweets;
+    if (this.state.filterByAuthor !== "All") {
+      tweets = tweetsByAuthor(tweets, this.state.filterByAuthor);
+    }
+    if (this.state.filterByHashtag !== "All") {
+      tweets = tweetsByHashtag(tweets, this.state.filterByHashtag);
+    }
+    const hashTags = getHashtags(this.state.tweets);
+    const tweetsToDisplay = tweets.sort((a, b) => {
+      const mult = this.state.order ? -1 : 1;
+      return mult * (new Date(b.created_at) - new Date(a.created_at));
+    });
+
+    const authors = [];
+    this.state.tweets.forEach(tweet => {
+      if (!authors.includes(tweet.user.screen_name))
+        authors.push(tweet.user.screen_name);
+    });
+
     return (
       <div>
-        <Filter filter={this.filter} />
-        <Order order={this.order} />
-        <Select tweets={tweetsToDisplay} />
+        <FilterLanguage filter={this.filter} />
+        <OrderDate order={this.order} />
+        <SelectAuthor authors={authors} filter={this.filterByAuthor} />
+        <SelectHashTag hashtags={hashTags} filter={this.filterByHashtag} />
         <TweetList tweets={tweetsToDisplay} />
       </div>
     );
   }
 }
-
 
 ReactDOM.render(<Root />, document.getElementById("root"));

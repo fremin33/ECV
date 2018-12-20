@@ -1,3 +1,12 @@
+
+// MIXINS
+.mixin-transition {
+  transition: all 0.3s ease-in-out;
+}
+
+// VARIABLES
+
+
 body {
   background: #e9e9e9;
   font-family: "Montserrat", sans-serif;
@@ -15,6 +24,10 @@ body {
           img {
             height: 50px;
             width: auto;
+            .mixin-transition();
+            &:hover {
+              transform: scale(1.5);
+            }
           }
           a {
             color: #111;
@@ -47,7 +60,7 @@ body {
         align-items: center;
         height: 0;
         opacity: 0;
-        transition: all 0.3s ease-in-out;
+        .mixin-transition();
         &:hover {
           height: 80px;
           opacity: 1;
@@ -100,7 +113,14 @@ body {
       height: 400px;
       background: #fff;
       border-radius: 2px;
-      margin: 10px;
+      margin: 20px;
+      box-shadow: 0 2px 5px 0 rgba(0,0,0,0.15);
+      border-bottom: 5px solid transparent;
+      .mixin-transition();
+      &:hover {
+        border-bottom: 5px solid #E8E8E8;
+        margin-top: 13px;
+      }
       form {
         display: block;
         padding: 60px 33px 12px 33px;
@@ -146,15 +166,15 @@ body {
               display: inline-block;
               margin: 0 4px;
               cursor: pointer;
-              &:nth-child(1) {
-                background-color: red;
-              }
-              &:nth-child(2) {
-                background-color: blue;
-              }
-              &:nth-child(3) {
-                background-color: green;
-              }
+              // &:nth-child(1) {
+              //   background-color: red;
+              // }
+              // &:nth-child(2) {
+              //   background-color: blue;
+              // }
+              // &:nth-child(3) {
+              //   background-color: green;
+              // }
               input {
                 opacity: 0;
                 cursor: pointer;
@@ -182,6 +202,3 @@ body {
     }
   }
 }
-
-
-

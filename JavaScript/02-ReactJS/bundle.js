@@ -23388,16 +23388,16 @@ if (process.env.NODE_ENV === 'production') {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = Filter;
+exports.default = FilterLanguage;
 
 var _react = _interopRequireDefault(require("react"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function Filter(props) {
+function FilterLanguage(props) {
   return _react.default.createElement("button", {
     onClick: props.filter
-  }, "Filter");
+  }, "Filter par langue");
 }
 
 },{"react":10}],18:[function(require,module,exports){
@@ -23413,11 +23413,13 @@ var _fetchJson = _interopRequireDefault(require("../vanilla/fetchJson"));
 
 var _tweetList = _interopRequireDefault(require("./tweetList"));
 
-var _filter = _interopRequireDefault(require("./filter"));
+var _orderDate = _interopRequireDefault(require("./orderDate"));
 
-var _order = _interopRequireDefault(require("./order"));
+var _selectAuthor = _interopRequireDefault(require("./selectAuthor"));
 
-var _select = _interopRequireDefault(require("./select"));
+var _filterLanguage = _interopRequireDefault(require("./filterLanguage"));
+
+var _selectHashtag = _interopRequireDefault(require("./selectHashtag"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23463,11 +23465,15 @@ function (_Component) {
     _this.state = {
       isFr: false,
       order: false,
+      filterByAuthor: "All",
+      filterByHashtag: "All",
       tweets: []
     }; // Permet d'utiliser this en tant que Root
 
     _this.filter = _this.filter.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.order = _this.order.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.filterByAuthor = _this.filterByAuthor.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.filterByHashtag = _this.filterByHashtag.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
@@ -23483,6 +23489,20 @@ function (_Component) {
     value: function order() {
       this.setState({
         order: !this.state.order
+      });
+    }
+  }, {
+    key: "filterByAuthor",
+    value: function filterByAuthor(author) {
+      this.setState({
+        filterByAuthor: author
+      });
+    }
+  }, {
+    key: "filterByHashtag",
+    value: function filterByHashtag(hastag) {
+      this.setState({
+        filterByHashtag: hastag
       });
     } //   Excuter après le premier rendu
 
@@ -23510,16 +23530,34 @@ function (_Component) {
       var _this3 = this;
 
       var tweets = this.state.isFr ? this.state.tweets.filter(_utils.isTweetFr) : this.state.tweets;
+
+      if (this.state.filterByAuthor !== "All") {
+        tweets = (0, _utils.tweetsByAuthor)(tweets, this.state.filterByAuthor);
+      }
+
+      if (this.state.filterByHashtag !== "All") {
+        tweets = (0, _utils.tweetsByHashtag)(tweets, this.state.filterByHashtag);
+      }
+
+      var hashTags = (0, _utils.getHashtags)(this.state.tweets);
       var tweetsToDisplay = tweets.sort(function (a, b) {
         var mult = _this3.state.order ? -1 : 1;
         return mult * (new Date(b.created_at) - new Date(a.created_at));
       });
-      return _react.default.createElement("div", null, _react.default.createElement(_filter.default, {
+      var authors = [];
+      this.state.tweets.forEach(function (tweet) {
+        if (!authors.includes(tweet.user.screen_name)) authors.push(tweet.user.screen_name);
+      });
+      return _react.default.createElement("div", null, _react.default.createElement(_filterLanguage.default, {
         filter: this.filter
-      }), _react.default.createElement(_order.default, {
+      }), _react.default.createElement(_orderDate.default, {
         order: this.order
-      }), _react.default.createElement(_select.default, {
-        tweets: tweetsToDisplay
+      }), _react.default.createElement(_selectAuthor.default, {
+        authors: authors,
+        filter: this.filterByAuthor
+      }), _react.default.createElement(_selectHashtag.default, {
+        hashtags: hashTags,
+        filter: this.filterByHashtag
       }), _react.default.createElement(_tweetList.default, {
         tweets: tweetsToDisplay
       }));
@@ -23531,22 +23569,22 @@ function (_Component) {
 
 _reactDom.default.render(_react.default.createElement(Root, null), document.getElementById("root"));
 
-},{"../vanilla/fetchJson":23,"../vanilla/utils":24,"./filter":17,"./order":19,"./select":20,"./tweetList":22,"react":10,"react-dom":7}],19:[function(require,module,exports){
+},{"../vanilla/fetchJson":24,"../vanilla/utils":25,"./filterLanguage":17,"./orderDate":19,"./selectAuthor":20,"./selectHashtag":21,"./tweetList":23,"react":10,"react-dom":7}],19:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = Order;
+exports.default = OrderDate;
 
 var _react = _interopRequireDefault(require("react"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function Order(props) {
+function OrderDate(props) {
   return _react.default.createElement("button", {
     onClick: props.order
-  }, "Trier");
+  }, "Trier par Date");
 }
 
 },{"react":10}],20:[function(require,module,exports){
@@ -23555,24 +23593,55 @@ function Order(props) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = Select;
+exports.default = SelectAuthor;
 
-var _react = _interopRequireWildcard(require("react"));
+var _react = _interopRequireDefault(require("react"));
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function Select(props) {
+function SelectAuthor(props) {
   return _react.default.createElement("div", null, _react.default.createElement("select", {
-    name: "author"
-  }, props.tweets.map(function (tweet) {
+    name: "author",
+    onChange: function onChange() {
+      return props.filter(event.target.value);
+    }
+  }, _react.default.createElement("option", {
+    key: "All-author"
+  }, "All"), props.authors.map(function (author) {
     return _react.default.createElement("option", {
-      key: tweet.id,
-      author: tweet.user.screen_name
-    }, tweet.user.screen_name);
+      key: author
+    }, author);
   })));
 }
 
 },{"react":10}],21:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = SelectHashtag;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function SelectHashtag(props) {
+  return _react.default.createElement("div", null, _react.default.createElement("select", {
+    name: "hastag",
+    onChange: function onChange() {
+      return props.filter(event.target.value);
+    }
+  }, _react.default.createElement("option", {
+    key: "All-hashtag"
+  }, "All"), props.hashtags.map(function (hashTag) {
+    return _react.default.createElement("option", {
+      key: hashTag
+    }, hashTag);
+  })));
+}
+
+},{"react":10}],22:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -23603,7 +23672,7 @@ function Tweet(props) {
   }, props.tweet.created_at)));
 }
 
-},{"react":10}],22:[function(require,module,exports){
+},{"react":10}],23:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -23629,7 +23698,7 @@ function TweetList(props) {
   return _react.default.createElement("div", null, _react.default.createElement("ul", null, myTweet));
 }
 
-},{"./tweet":21,"react":10}],23:[function(require,module,exports){
+},{"./tweet":22,"react":10}],24:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -23643,21 +23712,52 @@ function _default(url) {
   });
 }
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.isTweetFr = isTweetFr;
+exports.tweetsByAuthor = tweetsByAuthor;
+exports.tweetsByHashtag = tweetsByHashtag;
+exports.getHashtags = getHashtags;
 
 function isTweetFr(tweet) {
   // return "fr" === tweet.lang;
   return tweet.lang && tweet.lang.startsWith('fr');
 }
 
-function orderTweet(tweet) {
-  return new Date(b.created_at) - new Date(a.created_at);
+function tweetsByAuthor(tweets, author) {
+  return tweets.filter(function (tweet) {
+    return tweet.user.screen_name == author;
+  });
+}
+
+function tweetsByHashtag(tweets, hashtagSend) {
+  var newTweets = [];
+  tweets.forEach(function (tweet) {
+    tweet.entities.hashtags.map(function (hashtag) {
+      if (hashtag.text === hashtagSend) {
+        newTweets.push(tweet);
+      }
+
+      ;
+    });
+  });
+  return newTweets;
+}
+
+function getHashtags(tweets) {
+  var hashtags = [];
+  tweets.forEach(function (tweet) {
+    tweet.entities.hashtags.map(function (hashtag) {
+      return hashtag.text;
+    }).forEach(function (hashtagText) {
+      if (!hashtags.includes(hashtagText)) hashtags.push(hashtagText);
+    });
+  });
+  return hashtags;
 }
 
 },{}]},{},[18]);

@@ -1,3 +1,6 @@
+.mixin-transition {
+  transition: all 0.3s ease-in-out;
+}
 body {
   background: #e9e9e9;
   font-family: "Montserrat", sans-serif;
@@ -14,6 +17,10 @@ body header nav ul {
 body header nav ul li img {
   height: 50px;
   width: auto;
+  transition: all 0.3s ease-in-out;
+}
+body header nav ul li img:hover {
+  transform: scale(1.5);
 }
 body header nav ul li a {
   color: #111;
@@ -96,7 +103,14 @@ body section article {
   height: 400px;
   background: #fff;
   border-radius: 2px;
-  margin: 10px;
+  margin: 20px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.15);
+  border-bottom: 5px solid transparent;
+  transition: all 0.3s ease-in-out;
+}
+body section article:hover {
+  border-bottom: 5px solid #E8E8E8;
+  margin-top: 13px;
 }
 body section article form {
   display: block;
@@ -145,15 +159,6 @@ body section article form footer ul > li {
   display: inline-block;
   margin: 0 4px;
   cursor: pointer;
-}
-body section article form footer ul > li:nth-child(1) {
-  background-color: red;
-}
-body section article form footer ul > li:nth-child(2) {
-  background-color: blue;
-}
-body section article form footer ul > li:nth-child(3) {
-  background-color: green;
 }
 body section article form footer ul > li input {
   opacity: 0;

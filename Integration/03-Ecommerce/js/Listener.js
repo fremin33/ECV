@@ -43,6 +43,7 @@ const Listener = {
     listenRadio: function () {
         for (let i = 0; i < this.radioBtn.length; i++) {
             this.radioBtn[i].addEventListener('click', function (event) {
+                console.log(this);
                 Html.updateImgProduct(this.getAttribute('data-img'), this.parentElement.parentElement.getAttribute('data-id'));
             });
         }

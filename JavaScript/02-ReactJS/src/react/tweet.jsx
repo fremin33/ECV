@@ -1,12 +1,11 @@
 import React from "react";
 
 export default function Tweet(props) {
-
-
-  const rtDiv = props.tweet.retweeted_status
-    ? <h3 className="retweet">retweet</h3>
-    : undefined;
-
+  const rtDiv = props.tweet.retweeted_status ? (
+    <h3 className="retweet">retweet</h3>
+  ) : (
+    undefined
+  );
   return (
     <div className={"list"}>
       <li>
