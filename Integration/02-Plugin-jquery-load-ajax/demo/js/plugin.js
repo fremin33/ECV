@@ -4,7 +4,8 @@
         let settings = $.extend({
             output: 'output',
             dataDiv: 'data',
-            removeExtension: true,
+            removeExtension: false,
+            baseFile: "index.html",
             loader: {
                 source: 'https://bit.ly/2Jmnf3u',
                 css: {
@@ -21,13 +22,13 @@
         Loader.createLoader(settings.loader);
         this.click(function (event) {
             let link = $(this).attr("href").substring($(this).attr("href").lastIndexOf('/') + 1);
-            Page.getPage(settings, link);
+            Page.getPage(settings, link, event);
             ManageBrowser.updateHistory(link, settings)
         });
 
         window.onpopstate = function (event) {
             let link = event.state ? event.state.pathFile : "/";
-            Page.getPage(settings, link);
+            Page.getPage(settings, link, event);
         };
         return this;
     };
@@ -44,8 +45,9 @@
 // Gestion du navigateur (url + historique)
 let ManageBrowser = {
     updateHistory: function (data, settings) {
-        let filename = data.substring(data.lastIndexOf('/') + 1);
+        let filename = (data === "") ? settings.baseFile : data.substring(data.lastIndexOf('/') + 1);
         let pathFile = (filename === "") ? settings.baseUrl : (settings.removeExtension) ? ManageBrowser.formatUrlWithoutExtension(filename) : filename
+        
         
         history.pushState({
             title: filename,
@@ -69,9 +71,11 @@ let ManageBrowser = {
 
 // Gestion du chargement de la page
 let Page = {
-    getPage: function (settings, link) {
+    getPage: function (settings, link, event) {
+        url = settings.baseUrl.substr(0, settings.baseUrl.lastIndexOf("/"));
+        link = (link === "") ? settings.baseFile : link;
         event.preventDefault();
-        $(`.${settings.output}`).load(`${settings.baseUrl}/${link} #${settings.dataDiv}`, () => {
+        $(`.${settings.output}`).load(`${url}/${link} #${settings.dataDiv}`, () => {
             Loader.showLoader();
         });
     }
