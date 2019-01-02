@@ -19,7 +19,7 @@ const Method = {
         }
     },
     inizializeDom: function () {
-        if (Storage.getUserCart().products.length > 0)
+        if (Storage.getUserCart())
             Html.createLiForCart(Storage.getUserCart().products);
     }
 };

@@ -27,7 +27,7 @@ body header nav ul li a {
   font-weight: bold;
 }
 body #cart-pop-up {
-  width: 320px;
+  width: 400px;
   background: white;
   padding: 20px;
   color: #111;
@@ -35,7 +35,8 @@ body #cart-pop-up {
   font-weight: bold;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
   position: absolute;
-  right: 3px;
+  right: -400px;
+  transition: all 0.3s ease-in-out;
 }
 body #cart-pop-up header {
   display: flex;
@@ -51,11 +52,8 @@ body #cart-pop-up ul li {
   align-items: center;
   height: 0;
   opacity: 0;
+  font-size: 16px;
   transition: all 0.3s ease-in-out;
-}
-body #cart-pop-up ul li:hover {
-  height: 80px;
-  opacity: 1;
 }
 body #cart-pop-up ul li p:first-of-type {
   padding-bottom: 5px;
@@ -65,22 +63,35 @@ body #cart-pop-up ul li p:last-of-type {
   justify-content: space-between;
   align-items: center;
 }
+body #cart-pop-up ul li p:last-of-type span {
+  transition: all 0.3s ease-in-out;
+  font-size: 15px;
+}
 body #cart-pop-up ul li p:last-of-type span:nth-of-type(2) {
   color: #6394f8;
   text-transform: capitalize;
 }
 body #cart-pop-up ul li p:last-of-type span:nth-of-type(2) select {
+  border: 2px solid #444;
   background: none;
-  border: none;
+  border-radius: 3px;
+  outline: none;
+  text-align-last: center;
+  font-weight: 900;
+  width: 70px;
 }
-body #cart-pop-up ul li p:last-of-type span:last-of-type {
-  color: #6394f8;
+body #cart-pop-up ul li p:last-of-type span:nth-of-type(2) {
+  flex-grow: 1;
+}
+body #cart-pop-up ul li p:last-of-type span:last-of-type:hover {
+  color: #e8e8e8;
 }
 body #cart-pop-up ul li img {
   width: 100px;
 }
 body #cart-pop-up ul li div {
-  padding-left: 20px;
+  padding: 0 20px;
+  flex-grow: 1;
 }
 body #cart-pop-up a {
   background: black;
@@ -109,7 +120,7 @@ body section article {
   transition: all 0.3s ease-in-out;
 }
 body section article:hover {
-  border-bottom: 5px solid #E8E8E8;
+  border-bottom: 5px solid #e8e8e8;
   margin-top: 13px;
 }
 body section article form {
@@ -120,11 +131,13 @@ body section article form img {
   max-width: 100%;
   width: 250px;
   margin-bottom: 30px;
+  transition: all 0.3s ease-in-out;
 }
 body section article form main input {
   width: 100%;
   text-align: center;
   font-weight: bold;
+  font-size: 16px;
 }
 body section article form main input[type="number"] {
   margin-top: 10px;
@@ -163,6 +176,8 @@ body section article form footer ul > li {
 body section article form footer ul > li input {
   opacity: 0;
   cursor: pointer;
+  width: 100%;
+  height: 2em;
 }
 body section article form footer input[type="submit"] {
   font-size: 14px;
@@ -176,4 +191,7 @@ body section article form footer input[type="submit"] {
   font-family: "Roboto", sans-serif;
   color: #444;
   font-weight: bold;
+}
+.open-card {
+  right: 3px !important;
 }

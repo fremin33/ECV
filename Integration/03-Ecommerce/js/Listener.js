@@ -2,6 +2,7 @@ const Listener = {
     submitBtn: document.querySelectorAll('input[type="submit"]'),
     radioBtn: document.querySelectorAll('input[type="radio"]'),
     selectBtn: document.getElementsByTagName('select'),
+    cardBtn: document.getElementById('card-oc'),
     /**
      * Call all event listener
      */
@@ -10,6 +11,11 @@ const Listener = {
         Listener.listenStorage();
         Listener.listenRadio();
         Listener.listenSelect();
+        this.cardBtn.addEventListener('click', function (event) {
+            event.preventDefault();
+            let card = document.getElementById('cart-pop-up');
+            Utils.triggerClass(card, 'open-card');
+        })
     },
     /**
      * Add an event listener when click on AddToCartBtn
@@ -19,6 +25,8 @@ const Listener = {
             this.submitBtn[i].addEventListener('click', function (event) {
                 event.preventDefault();
                 Storage.addProductInStorage(Utils.createProductWithForm(this.form));
+                let card = document.getElementById('cart-pop-up');
+                card.classList.add('open-card');
             });
         }
     },
@@ -43,7 +51,6 @@ const Listener = {
     listenRadio: function () {
         for (let i = 0; i < this.radioBtn.length; i++) {
             this.radioBtn[i].addEventListener('click', function (event) {
-                console.log(this);
                 Html.updateImgProduct(this.getAttribute('data-img'), this.parentElement.parentElement.getAttribute('data-id'));
             });
         }
